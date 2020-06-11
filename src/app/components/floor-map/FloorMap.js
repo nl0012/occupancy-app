@@ -166,6 +166,10 @@ class FloorMap extends React.Component {
 
       let margin = 40;
 
+      if (range === null || range === undefined) {
+        return null;
+      }
+
       if (entity.payload.geo.extent.extentClassName === "rectangle") {
         coordInfo.start.x = self.scale(
           coordInfo.start.x,
@@ -286,7 +290,6 @@ class FloorMap extends React.Component {
   render() {
     return (
       <div className="FloorMap">
-        hell  o
         <div className="floormap-map-wrapper">
           <svg
             className="floormap-canvas"

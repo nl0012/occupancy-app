@@ -24,6 +24,7 @@ import {
   capitalizeWords,
   getQueryString,
 } from "globals/utils/formatting-helper";
+import entityLoop from "globals/looping-entities";
 
 function Home(props) {
   // Hooks
@@ -37,6 +38,8 @@ function Home(props) {
 
   // Redirecting variables
   const [willRedirect, redirect] = useState(false);
+  const [willRedirectHard, redirectHard] = useState(false);
+  const [hardRoute, pushHardRoute] = useState([]);
   const [newRoute, pushRoute] = useState(
     isValidUrl(windowRoute) ? [] : [config.id]
   );
@@ -81,6 +84,11 @@ function Home(props) {
         getEntity(newRoute[newRoute.length - 1]);
       }
     });
+
+    console.log(entityLoop);
+    if (entityLoop.loop) {
+      loopEntities();
+    }
   }, []);
 
   useEffect(() => {
@@ -88,12 +96,20 @@ function Home(props) {
     if (willRedirect) {
       redirect(false);
     }
-  }, [willRedirect]);
+    if (willRedirectHard) {
+      redirectHard(false);
+    }
+  }, [willRedirect, willRedirectHard]);
 
   useEffect(() => {
     // If our current route changes, we should trigger a redirect
     redirect(true);
   }, [newRoute]);
+
+  useEffect(() => {
+    // If our current route changes, we should trigger a redirect
+    redirectHard(true);
+  }, [hardRoute]);
 
   useEffect(() => {
     getOccupancyData(entity, subEntities, currentDate);
@@ -124,11 +140,18 @@ function Home(props) {
     setLegendMax(max);
   }, [occupancies]);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     selectEntity();
-  //   })
-  // }, []);
+  function loopEntities() {
+    let count = 0;
+    console.log(entityLoop.entityUrls);
+    setInterval(() => {
+      console.log([...entityLoop.entityUrls[count].split("/")]);
+      pushHardRoute(entityLoop.entityUrls[count].split("/"))
+      count++;
+      if (count === entityLoop.entityUrls.length) {
+        count = 0;
+      }
+    }, 15000);
+  }
 
   function refreshOccupancies() {
     if (subEntities.length > 0) {
@@ -144,6 +167,10 @@ function Home(props) {
       route = "/" + windowRoute.concat(newRoute).join("/");
     }
     return <Redirect to={route + "?" + getQueryString(queryParams)}></Redirect>;
+  }
+
+  function getHardRedirect() {
+    return <Redirect to={"/" + hardRoute.join("/") + "?" + getQueryString(queryParams)}></Redirect>;
   }
 
   function getEntity(entityId) {
@@ -272,7 +299,6 @@ function Home(props) {
 
   // Renders the floor map if we need to select a non-geo object (GeoSubNonGeo, NonGeoSubNonGeo)
   function render2DMap() {
-    console.log('in render 2d map")');
     return (
       <FloorMap
         twoDimensionalEntities={subEntities}
@@ -386,6 +412,7 @@ function Home(props) {
       ></LoadingBar>
 
       {willRedirect ? getRedirect() : null}
+      {willRedirectHard ? getHardRedirect() : null}
       {renderToast()}
       {renderMap()}
 
