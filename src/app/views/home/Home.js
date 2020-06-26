@@ -107,7 +107,6 @@ function Home(props) {
 
   useEffect(() => {
     // If our current route changes, we should trigger a redirect
-    console.log(entityLoop.loop);
     if (entityLoop.loop){ 
       redirectHard(true);
     }
@@ -143,7 +142,6 @@ function Home(props) {
   function loopEntities() {
     let count = 0;
     setInterval(() => {
-      console.log('looping', entityLoop.entityUrls[count].split("/"));
       pushHardRoute(entityLoop.entityUrls[count].split("/"))
       count++;
       if (count === entityLoop.entityUrls.length) {
@@ -169,7 +167,6 @@ function Home(props) {
   }
 
   function getHardRedirect() {
-    if (hardRoute.join("/") !== "") {
       return <Redirect to={"/" + hardRoute.join("/") + "?" + getQueryString(queryParams)}></Redirect>;
     }
     return null;

@@ -1,3 +1,5 @@
+// Defined Entity Loops
+
 let entityLoop = {
   loop: process.env.REACT_APP_LOOP_ENTITIES === "true",
   entityUrls: [

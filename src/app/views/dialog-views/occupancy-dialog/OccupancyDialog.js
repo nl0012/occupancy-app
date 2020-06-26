@@ -77,8 +77,6 @@ function OccupancyDialog(props) {
       // return moment(observation.timestamp).format("MMM Do h:mm:ss");
     });
 
-    // console.log(timestamps);
-
     setMin({
       value: minVal,
       timestamp: minTimestamp,
