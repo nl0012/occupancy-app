@@ -85,7 +85,6 @@ function Home(props) {
       }
     });
 
-    console.log(entityLoop);
     if (entityLoop.loop) {
       loopEntities();
     }
@@ -108,7 +107,10 @@ function Home(props) {
 
   useEffect(() => {
     // If our current route changes, we should trigger a redirect
-    redirectHard(true);
+    console.log(entityLoop.loop);
+    if (entityLoop.loop){ 
+      redirectHard(true);
+    }
   }, [hardRoute]);
 
   useEffect(() => {
@@ -116,7 +118,6 @@ function Home(props) {
   }, [subEntities, currentDate]);
 
   useEffect(() => {
-    console.log(realtime);
     // If one of these changes, we need to update the URL parameters
     let newQueryParams = {
       currentDate: moment(currentDate).toISOString(),
@@ -125,7 +126,6 @@ function Home(props) {
 
     // Only repull if the query params are different
     if (!_.isEqual(newQueryParams, queryParams)) {
-      console.log(realtime);
       history.push("?" + getQueryString(newQueryParams));
     }
   }, [currentDate, realtime]);
@@ -142,9 +142,8 @@ function Home(props) {
 
   function loopEntities() {
     let count = 0;
-    console.log(entityLoop.entityUrls);
     setInterval(() => {
-      console.log([...entityLoop.entityUrls[count].split("/")]);
+      console.log('looping', entityLoop.entityUrls[count].split("/"));
       pushHardRoute(entityLoop.entityUrls[count].split("/"))
       count++;
       if (count === entityLoop.entityUrls.length) {
@@ -170,7 +169,10 @@ function Home(props) {
   }
 
   function getHardRedirect() {
-    return <Redirect to={"/" + hardRoute.join("/") + "?" + getQueryString(queryParams)}></Redirect>;
+    if (hardRoute.join("/") !== "") {
+      return <Redirect to={"/" + hardRoute.join("/") + "?" + getQueryString(queryParams)}></Redirect>;
+    }
+    return null;
   }
 
   function getEntity(entityId) {
@@ -204,7 +206,6 @@ function Home(props) {
           setErrorLoading(false);
 
           if (realtime === false) {
-            console.log(newEntity, "analytics");
             openDialog(newEntity, "analytics");
           }
         }
@@ -275,7 +276,6 @@ function Home(props) {
 
   // Opens a dialog using the information given
   function openDialog(entity, titleSubscript) {
-    console.log("OPEN DIALOG CALLED");
     setRealtime(false);
     setDialogTitle(entity.name);
     setDialogTitleSubscript(titleSubscript);

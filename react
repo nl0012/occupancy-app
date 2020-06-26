@@ -26,7 +26,7 @@ case $2 in
                 export REACT_APP_BASE_URL=https://dev-tippers.ics.uci.edu/api
                 export REACT_APP_OBSERVATION_ID=13
                 export REACT_APP_BASE_ENTITY_ID=10000
-                export REACT_APP_LOOP_ENTITIES=false
+                export REACT_APP_LOOP_ENTITIES=true
                 eval "$action"
                 ;;
 	uci)

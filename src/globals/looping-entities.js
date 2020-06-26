@@ -1,5 +1,3 @@
-console.log(process.env.REACT_APP_LOOP_ENTITY_LINKS);
-
 let entityLoop = {
   loop: process.env.REACT_APP_LOOP_ENTITIES === "true",
   entityUrls: [
