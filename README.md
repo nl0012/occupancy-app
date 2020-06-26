@@ -31,6 +31,14 @@ Build the application using `./react build [configuration case (dev, uci, etc)]`
 
 Optional: In the ./react file, set `REACT_APP_LOOP_ENTITIES=true` to loop through the defined links for the application. In globals/looping-entities.js, add entity links similar to the ones already defined there. Every 15 seconds, the application will loop through between the defined links.
 
+## Step 6 (Deployment on UCI Tippers Server)
+
+1. Follow the steps above
+2. SSH into the TIPPERS server using `ssh tristan@128.195.53.159`
+3. `cd` into the `occupancy_app` directory
+4. Use `git pull` to pull most recent changes on the develop branch
+5. Run `./react build (dev, uci)`
+6. Run `server restart occupancy_dev` using the IP above. This is the `dev` instance of tippers. 
 
 ## Functionality 
 
