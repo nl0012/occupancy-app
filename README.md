@@ -31,7 +31,7 @@ Build the application using `./react build [configuration case (dev, uci, etc)]`
 
 Optional: In the ./react file, set `REACT_APP_LOOP_ENTITIES=true` to loop through the defined links for the application. In globals/looping-entities.js, add entity links similar to the ones already defined there. Every 15 seconds, the application will loop through between the defined links.
 
-## Step 6 (Deployment on UCI Tippers Server)
+### Step 6 (Deployment on UCI Tippers Server)
 
 1. Follow the steps above
 2. SSH into the TIPPERS server using `ssh tristan@128.195.53.159`
