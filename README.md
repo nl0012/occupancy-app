@@ -29,6 +29,9 @@ Run the application using `./react start [configuration case (dev, uci, etc)]`
 
 Build the application using `./react build [configuration case (dev, uci, etc)]`
 
+Optional: In the ./react file, set `REACT_APP_LOOP_ENTITIES=true` to loop through the defined links for the application. In globals/looping-entities.js, add entity links similar to the ones already defined there. Every 15 seconds, the application will loop through between the defined links.
+
+
 ## Functionality 
 
 The TIPPERS Occupancy App is built to utilize the TIPPERS Semiotic API for realtime and historical occupancy tracking of different IoT spaces. Data for different entities can be exported using the data analytics panel to a CSV. Take a look below to see different functionalities of the app.
