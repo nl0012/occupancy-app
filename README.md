@@ -40,6 +40,10 @@ Optional: In the ./react file, set `REACT_APP_LOOP_ENTITIES=true` to loop throug
 5. Run `./react build (dev, uci)`
 6. Run `server restart occupancy_dev` using the IP above. This is the `dev` instance of tippers. 
 
+### Extra Notes
+
+To change the occupancy query for the application dependant on the TIPPERS structure, take a look at lines 231-241 on the `src/views/Home.js` file. Here the query is defined for the application.
+
 ## Functionality 
 
 The TIPPERS Occupancy App is built to utilize the TIPPERS Semiotic API for realtime and historical occupancy tracking of different IoT spaces. Data for different entities can be exported using the data analytics panel to a CSV. Take a look below to see different functionalities of the app.
